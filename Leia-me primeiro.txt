@@ -1,0 +1,49 @@
+/*
+	Encriptando a Senha
+*/
+
+<?php
+		//senha proveniente do formulario
+		$senha = $_POST['senha'];
+		
+		//Inclui a classe 
+		require('Encript.class.php');
+		
+		//cria novo objecto
+		$Enc = new Encript;
+		
+		//usa o metodo gerarHash($senha) para encriptar senha e prontos! :-) já pode guardar a senha no banco de dados
+		$senha_encriptada = gerarHash($senha);
+?>
+
+
+
+/*
+	Desincriptando a Senha
+*/
+
+<?php
+		//pega a senha do banco de dados
+		$senha_bd;
+		
+		//pega a senha do formulario de login
+		$senha_form = $_POST['senha'];
+		
+		//instancia a classe Encript
+		$Enc = new Encript;
+		
+		//usa o metodo verificarSenha($senha, $hash_user) -- $senha: senha que vem do formulario || --$hash_user:  senha do banco de dados
+		if(verificarSenha($senha_form, $senha_bd)){
+			print "Logou com sucesso!";
+		}
+		else{
+			print "Senha incorrecta!";
+		}
+		
+
+?>
+
+
+
+
+
