@@ -35,18 +35,17 @@
 				
 				//função que gera o salto aleatoriamente
 				public function gerarSalto($tamanho){
-					$string = '0123456789abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYWZ';
-					$array  = explode('',$string);
-					
+					$string = '0 1 2 3 4 5 6 7 8 9 a b c d e f g h i j k l m n o p q r s t u v x y z A B C D E F G H I J K L M N O P Q R S T U V X Y W Z';
+					$array  = explode(' ',$string);
 					for($i=0;$i<=$tamanho;$i++){
 						$string_result .= $string[rand(0, count($array))]; 
 					}
-				return $tring_result;
+				return $string_result;
 				}
 	
 				//função que gera o hash que é guardado no banco de dados.
 				public function gerarHash($senha){
-					$this->hash_user = crypt($senha.'$2a$'. $this->custo.'$'. $this->salto.'$');
+					$this->hash_user = crypt($senha,'$2a$'. $this->custo.'$'.$this->gerarSalto(64).'$');
 					
 					return $this->hash_user;
 				}
